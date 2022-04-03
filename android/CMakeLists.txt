@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.10.0)
 
-# TODO please change me!
 set(OPENCV_BASE_DIR "/Users/georgiu/Downloads/OpenCV-android-sdk")
 
 set(OPENCV_INCLUDE_DIR "${OPENCV_BASE_DIR}/sdk/native/jni/include/")
@@ -53,6 +52,11 @@ set_target_properties(objdetect PROPERTIES IMPORTED_LOCATION ${OPENCV_STATIC_LIB
 add_library(stitching STATIC IMPORTED)
 set_target_properties(stitching PROPERTIES IMPORTED_LOCATION ${OPENCV_STATIC_LIB_DIR}/libopencv_stitching.a)
 
+
+
+add_library(aruco STATIC IMPORTED)
+set_target_properties(aruco PROPERTIES IMPORTED_LOCATION ${OPENCV_STATIC_LIB_DIR}/libopencv_aruco.a)
+
 include(AndroidNdkModules)
 android_ndk_import_module_cpufeatures()
 
@@ -81,6 +85,7 @@ add_library(native_with_opencv
 target_link_libraries(native_with_opencv
         ${log-lib}
         core
+        aruco
         tbb # note: need to be placed *after* "core"
         cpufeatures
         ittnotify
